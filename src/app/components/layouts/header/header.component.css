@@ -1,0 +1,78 @@
+.navbar-toggler:active {  
+    outline: none;
+}
+
+#navbardrop:focus {
+    color: #DCDCDC;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    background-color: #343a40;
+}
+
+.dropdown-item {
+    background-color: #343a40;
+    color: #A9A9A9;
+ }
+
+.dropdown-item:hover {
+    background-color: #171a1c;
+    color: white;
+}
+
+.has-search-icon .form-control {
+    padding-left: 2.375rem;
+    background-color: #454d54;
+    border-style: none;
+}
+
+.has-search-icon .form-control:focus {
+    background-color: white;
+    box-shadow: none;
+}
+
+.has-search-icon .form-control:not(:focus) {
+    color: #aaa;
+}
+
+.has-search-icon .form-control-feedback {
+    position: absolute;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.ark-search-window:focus,
+.ark-btn-sign-in:active {
+    box-shadow: none;
+}
+
+.ark-btn-sign-in {
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
