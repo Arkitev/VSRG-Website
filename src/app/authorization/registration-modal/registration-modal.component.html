@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="modal fade" id="registrationModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title col-11 text-center">Registration Panel</h2>
+                    <button class="close" type="button" data-dismiss="modal" (click)="onReset();">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit();">
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input class="form-control text-muted" formControlName="email" type="email" placeholder="Enter your email address">
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                                <div *ngIf="email.errors.required">Email is required.</div>
+                                <div *ngIf="email.errors.email">Wrong email format.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input class="form-control" formControlName="username" type="text" placeholder="Choose your username">
+                            <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+                                <div *ngIf="username.errors.required">Username is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input class="form-control" formControlName="password" type="password" placeholder="Enter your password">
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                                <div *ngIf="password.errors.required">Password is required.</div>
+                                <div *ngIf="password.errors.minlength">Password must have at least 8 chars.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="repeatedPassword">Confirm password</label>
+                            <input class="form-control" formControlName="repeatedPassword" type="password" placeholder="Confirm your password">
+                            <div *ngIf="repeatedPassword.invalid && (repeatedPassword.dirty || repeatedPassword.touched)" class="alert alert-danger">
+                                <div *ngIf="repeatedPassword.errors.required">Password confirmation is required.</div>
+                                <div *ngIf="!repeatedPassword.errors.repeatedPasswordValidator">Passwords are not the same.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mainGame">Main game</label>
+                            <select class="form-control" id="mainGame">
+                                <option selected>---</option>
+                                <option>osu!mania</option>
+                                <option>BeatmaniaIIDX</option>
+                                <option>Lunar Rave 2</option>
+                                <option>Pop'n Music</option>
+                                <option>Sound Voltex</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-check">
+                            <input class="form-check-input" formControlName="acceptRules" id="acceptRules" type="checkbox">
+                            <label class="form-check-label" for="acceptRules">I accept the rules and agreements</label>
+                            <div *ngIf="acceptRules.invalid && (acceptRules.dirty || acceptRules.touched)" class="alert alert-danger">
+                                <div *ngIf="acceptRules.errors.pattern">Rules acceptation is required.</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary mb-3" [disabled]="registrationForm.invalid" type="submit" routerLink="/home">Sign up</button>
+                        <div class="alert alert-danger" *ngIf="message">{{message}}</div>
+                    </form>
+                    <div style="display: flex;">
+                        <span class="mr-1">Have already an account?</span>
+                        <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#loginModal" (click)="onReset()" data-backdrop="static" data-keyboard="false">Sign in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

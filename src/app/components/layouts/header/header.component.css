@@ -1,5 +1,13 @@
-.navbar-toggler:active {  
+.navbar-toggler:active {
     outline: none;
+}
+
+.show>.nav-link {
+    color: #DCDCDC;
+}
+
+.nav-link {
+    cursor: pointer;
 }
 
 #navbardrop:focus {
@@ -17,29 +25,29 @@
 .dropdown-item {
     background-color: #343a40;
     color: #A9A9A9;
- }
+}
 
 .dropdown-item:hover {
     background-color: #171a1c;
     color: white;
 }
 
-.has-search-icon .form-control {
+.ark-has-search-icon .form-control {
     padding-left: 2.375rem;
     background-color: #454d54;
     border-style: none;
 }
 
-.has-search-icon .form-control:focus {
+.ark-has-search-icon .form-control:focus {
     background-color: white;
     box-shadow: none;
 }
 
-.has-search-icon .form-control:not(:focus) {
+.ark-has-search-icon .form-control:not(:focus) {
     color: #aaa;
 }
 
-.has-search-icon .form-control-feedback {
+.ark-has-search-icon .form-control-feedback {
     position: absolute;
     display: block;
     width: 2.375rem;
@@ -51,28 +59,10 @@
 }
 
 .ark-search-window:focus,
-.ark-btn-sign-in:active {
+.ark-btn-nav:active {
     box-shadow: none;
 }
 
-.ark-btn-sign-in {
+.ark-btn-nav {
     color: white;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

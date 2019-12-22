@@ -1,0 +1,40 @@
+<div class="container">
+    <div id="loginModal" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title col-11 text-center">Login Panel</h2>
+                    <button class="close" type="button" data-dismiss="modal" (click)="onReset()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(); onReset();">
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input class="form-control text-muted" formControlName="email" type="email" placeholder="Enter your email address">
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                                <div *ngIf="email.errors.required">Email is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input class="form-control" formControlName="password" type="password" placeholder="Enter your password">
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                                <div *ngIf="password.errors.required">Password is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group form-check">
+                            <input class="form-check-input" id="keepLogged" type="checkbox" (click)="xd()">
+                            <label class="form-check-label" for="keepLogged">Keep me logged in</label>
+                        </div>
+                        <button class="btn btn-primary mb-3" [disabled]="loginForm.invalid" type="submit" routerLink="/home">Log in</button>
+                        <div class="alert alert-danger" *ngIf="message">{{message}}</div>
+                    </form>
+                    <div style="display: flex;">
+                        <span class="mr-1 ">Dont have an account?</span>
+                        <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#registrationModal" (click)="onReset()" data-backdrop="static" data-keyboard="false">Sign up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

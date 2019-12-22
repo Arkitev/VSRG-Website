@@ -1,0 +1,10 @@
+.ark-password-label {
+    border-bottom: 1px, solid, #000000;
+    width: 100%;
+}
+
+.card-body {
+    font-size: 17px;
+    height: 340px;
+    width: 340px;
+}

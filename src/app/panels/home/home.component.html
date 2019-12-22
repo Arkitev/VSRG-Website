@@ -1,0 +1,164 @@
+<app-carousel></app-carousel>
+
+<div class="container">
+    <div class="mt-3">
+        <h5>Submit your score</h5>
+    </div>
+    <hr />
+    <form>
+        <!--Game-->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="game">Category</label>
+            <div class="col-sm-10">
+                <select [(ngModel)]="selectedGame" class="form-control" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let game of games">
+                        {{game.name}}
+                     </option>
+                </select>
+            </div>
+        </div>
+
+        <!--Dan-->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="dan">Dan</label>
+            <div class="col-sm-10">
+
+                <ng-container [ngSwitch]="selectedGame">
+                    <div *ngSwitchCase="'osu!mania 4k - Reform Dans'">
+                        <select class="form-control" id="osu!mania">
+                            <option>INTRO 1st</option>
+                            <option>INTRO 2nd</option>
+                            <option>INTRO 3rd</option>
+                            <option>1st</option>
+                            <option>2nd</option>
+                            <option>3rd</option>
+                            <option>4th</option>
+                            <option>5th</option>
+                            <option>6th</option>
+                            <option>7th</option>
+                            <option>8th</option>
+                            <option>9th</option>
+                            <option>10th</option>
+                            <option>Alpha</option>
+                            <option>Beta</option>
+                            <option>Gamma</option>
+                            <option>Delta</option>
+                            <option>Epsilon</option>
+                        </select>
+                    </div>
+
+                    <div *ngSwitchCase="'Beatmania IIDX - Single Play'">
+                        <select class="form-control" id="beatmania">
+                            <option>7th Kyu</option>
+                            <option>6th Kyu</option>
+                            <option>4th Kyu</option>
+                            <option>3rd Kyu</option>
+                            <option>2nd Kyu</option>
+                            <option>1st Kyu</option>
+                            <option>1st</option>
+                            <option>2nd</option>
+                            <option>3rd</option>
+                            <option>4th</option>
+                            <option>5th</option>
+                            <option>6th</option>
+                            <option>7th</option>
+                            <option>8th</option>
+                            <option>9th</option>
+                            <option>10th</option>
+                            <option>Chuuden</option>
+                            <option>Kaiden</option>
+                        </select>
+                    </div>
+
+                    <div *ngSwitchCase="'Lunatic Rave 2 - BMS'">
+                        <select class="form-control" id="lunarrave">
+                            <option>1st Normal</option>
+                            <option>2nd Normal</option>
+                            <option>3rd Normal</option>
+                            <option>4th Normal</option>
+                            <option>5th Normal</option>
+                            <option>6th Normal</option>
+                            <option>7th Normal</option>
+                            <option>8th Normal</option>
+                            <option>9th Normal</option>
+                            <option>10th Normal</option>
+                            <option>1st Insane</option>
+                            <option>2nd Insane</option>
+                            <option>3rd Insane</option>
+                            <option>4th Insane</option>
+                            <option>5th Insane</option>
+                            <option>6th Insane</option>
+                            <option>7th Insane</option>
+                            <option>8th Insane</option>
+                            <option>9th Insane</option>
+                            <option>10th Insane</option>
+                            <option>Kaiden</option>
+                            <option>Overjoy</option>
+                        </select>
+                    </div>
+
+                    <div *ngSwitchCase="'Dance Dance Revolution - Single Play'">
+                        <select class="form-control" id="pms">
+                            <option>1st</option>
+                            <option>2nd</option>
+                            <option>3rd</option>
+                            <option>4th</option>
+                            <option>5th</option>
+                            <option>6th</option>
+                            <option>7th</option>
+                            <option>8th</option>
+                            <option>9th</option>
+                            <option>10th</option>
+                            <option>Kaiden</option>
+                        </select>
+                    </div>
+
+                    <div *ngSwitchCase="'Sound Voltex - New Dans'">
+                        <select class="form-control" id="sdvx">
+                            <option>Lv.01</option>
+                            <option>Lv.02</option>
+                            <option>Lv.03</option>
+                            <option>Lv.04</option>
+                            <option>Lv.05</option>
+                            <option>Lv.06</option>
+                            <option>Lv.07</option>
+                            <option>Lv.08</option>
+                            <option>Lv.09</option>
+                            <option>Lv.10</option>
+                            <option>Lv.11</option>
+                            <option>Lv.∞</option>
+                        </select>
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+
+        <!--Nickname-from-game-->
+        <div class="form-group row ">
+            <label class="col-sm-2 col-form-label" for="nickname">Nickname from game</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="nickname" type="text">
+            </div>
+        </div>
+
+        <!--Score-->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="score">Score</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="score" type="number">
+            </div>
+        </div>
+
+        <!--Proof-->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="proof">Proof (link to screenshoot or video)</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="proof" type="url">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mb-3">Save changes</button>
+    </form>
+
+</div>

@@ -1,59 +1,82 @@
+<app-login-modal></app-login-modal>
+<app-registration-modal></app-registration-modal>
+
+<!--Navbar-->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark px-md-5 sticky-top">
+
     <!--Logo-->
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" routerLink="/home">
         <img src="favicon.ico" alt="Logo">
     </a>
-    <!---->
+
     <!--Toggler-->
-    <button class="navbar-toggler" onClick="this.blur();" type="button" data-toggle="collapse"
-        data-target="#navbar-vsrg" aria-controls="#navbar-vsrg" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" onClick="this.blur();" type="button" data-toggle="collapse" data-target="#navbar-vsrg" aria-controls="#navbar-vsrg" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <!---->
+
     <!--Toggler-Menu-->
     <div class="navbar-collapse collapse" id="navbar-vsrg">
-        <!--List-->
+        <!--Toggler-Navigations-->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item mr-3">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" routerLink="/home">Home</a>
             </li>
-            <li class="nav-item mr-3 dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Games</a>
+            <li class="nav-item dropdown mr-3">
+                <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">Games</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">osu!mania 4k</a>
-                    <a class="dropdown-item" href="#">osu!mania 7k</a>
-                    <a class="dropdown-item" href="#">Beatmania IIDX</a>
-                    <a class="dropdown-item" href="#">Lunar Rave 2</a>
-                    <a class="dropdown-item" href="#">Pop'n Music</a>
-                    <a class="dropdown-item" href="#">Sound Voltex</a>
+                    <a class="dropdown-item" routerLink="/osumania">osu!mania</a>
+                    <a class="dropdown-item" routerLink="/beatmaniaiidx">Beatmania IIDX</a>
+                    <a class="dropdown-item" routerLink="/lunaticrave">Lunatic Rave 2</a>
+                    <a class="dropdown-item" routerLink="/ddr">Dance Dance Revolution</a>
+                    <a class="dropdown-item" routerLink="/soundvoltex">Sound Voltex</a>
                 </div>
             </li>
             <li class="nav-item dropdown mr-3">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Community</a>
+                <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">Community</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Players</a>
-                    <a class="dropdown-item" href="#">Events</a>
+                    <a class="dropdown-item" routerLink="/players">Players</a>
+                    <a class="dropdown-item" routerLink="/events">Events</a>
                 </div>
             </li>
             <li class="nav-item mr-3">
-                <a class="nav-link" href="#">Rankings</a>
+                <a class="nav-link" routerLink="/rankings">Rankings</a>
             </li>
             <li class="nav-item mr-3">
-                <a class="nav-link" href="#">Downloads</a>
+                <a class="nav-link" routerLink="/downloads">Downloads</a>
             </li>
         </ul>
-        <!---->
+
         <!--Search-->
-        <div class="has-search-icon mr-md-5 my-2 my-md-0">
+        <div class="ark-has-search-icon mr-md-5 my-2 my-md-0">
             <span class="fa fa-search form-control-feedback"></span>
             <input class="form-control search-window" type="search" placeholder="Search">
         </div>
-        <!---->
-        <!--Sign-in-->
-        <a class="ark-btn-sign-in" href="#">
-            <i class="fas fa-sign-in-alt fa-2x"></i>
-        </a>
-        <!---->
+
+
+        <ng-container *ngIf="!isJwtSet(); else logged">
+            <!--Sign-in-->
+            <a class="ark-btn-nav mr-4" href data-toggle="modal" (click)="openLoginModal()" data-backdrop="static" data-keyboard="false">
+                <i class="fas fa-sign-in-alt fa-2x"></i>
+            </a>
+
+            <!--Sign-up-->
+            <a class="ark-btn-nav" href data-toggle="modal" (click)="openRegistrationModal()" data-backdrop="static" data-keyboard="false">
+                <i class="fas fa-user-plus fa-2x"></i>
+            </a>
+        </ng-container>
+
+        <ng-template #logged>
+            <!--User-panel-->
+            <a class="ark-btn-nav mr-4" routerLink="/user-panel">
+                <i class="fas fa-user fa-2x"></i>
+            </a>
+
+            <!--Log-out-->
+            <a class="ark-btn-nav" routerLink="/home" (click)="logOut()">
+                <i class="fas fa-sign-out-alt fa-2x"></i>
+            </a>
+        </ng-template>
+
     </div>
-    <!---->
+
 </nav>
