@@ -64,5 +64,6 @@
 }
 
 .ark-btn-nav {
-    color: white;
+    color: white !important;
+    cursor: pointer;
 }

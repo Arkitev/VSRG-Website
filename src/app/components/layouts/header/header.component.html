@@ -2,7 +2,7 @@
 <app-registration-modal></app-registration-modal>
 
 <!--Navbar-->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark px-md-5 sticky-top">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark px-md-5">
 
     <!--Logo-->
     <a class="navbar-brand" routerLink="/home">
@@ -10,7 +10,7 @@
     </a>
 
     <!--Toggler-->
-    <button class="navbar-toggler" onClick="this.blur();" type="button" data-toggle="collapse" data-target="#navbar-vsrg" aria-controls="#navbar-vsrg" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" onClick="this.blur();" type="button" data-toggle="collapse" data-target=".collapse" aria-controls="#navbar-vsrg" aria-expanded="false" aria-label="Navbar-toggler">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -52,7 +52,6 @@
             <input class="form-control search-window" type="search" placeholder="Search">
         </div>
 
-
         <ng-container *ngIf="!isJwtSet(); else logged">
             <!--Sign-in-->
             <a class="ark-btn-nav mr-4" href data-toggle="modal" (click)="openLoginModal()" data-backdrop="static" data-keyboard="false">
@@ -72,7 +71,7 @@
             </a>
 
             <!--Log-out-->
-            <a class="ark-btn-nav" routerLink="/home" (click)="logOut()">
+            <a class="ark-btn-nav" (click)="logOut()">
                 <i class="fas fa-sign-out-alt fa-2x"></i>
             </a>
         </ng-template>

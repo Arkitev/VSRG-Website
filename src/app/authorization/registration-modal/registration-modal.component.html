@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label for="mainGame">Main game</label>
-                            <select class="form-control" id="mainGame">
+                            <select class="form-control" formControlName="mainGame" id="mainGame">
                                 <option selected>---</option>
                                 <option>osu!mania</option>
                                 <option>BeatmaniaIIDX</option>
@@ -57,7 +57,7 @@
                                 <div *ngIf="acceptRules.errors.pattern">Rules acceptation is required.</div>
                             </div>
                         </div>
-                        <button class="btn btn-primary mb-3" [disabled]="registrationForm.invalid" type="submit" routerLink="/home">Sign up</button>
+                        <button class="btn btn-primary mb-3" [disabled]="registrationForm.invalid" type="submit">Sign up</button>
                         <div class="alert alert-danger" *ngIf="message">{{message}}</div>
                     </form>
                     <div style="display: flex;">

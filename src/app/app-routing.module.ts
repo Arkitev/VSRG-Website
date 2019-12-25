@@ -11,6 +11,7 @@ import { EventsComponent } from './panels/events/events.component';
 import { RankingsComponent } from './panels/rankings/rankings.component';
 import { DownloadsComponent } from './panels/downloads/downloads.component';
 import { UserPanelComponent } from './panels/user-panel/user-panel.component';
+import { AuthorizationGuard } from './authorization/authorization-guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'rankings', component: RankingsComponent },
   { path: 'downloads', component: DownloadsComponent },
-  { path: 'user-panel', component: UserPanelComponent }
+  { path: 'user-panel', component: UserPanelComponent, canActivate: [AuthorizationGuard] },
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

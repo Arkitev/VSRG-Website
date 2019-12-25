@@ -12,6 +12,7 @@ import { FooterComponent } from './components/layouts/footer/footer.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { LoginModalComponent } from './authorization/login-modal/login-modal.component';
 import { RegistrationModalComponent } from './authorization/registration-modal/registration-modal.component';
+import { AuthorizationGuard } from './authorization/authorization-guard';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RegistrationModalComponent } from './authorization/registration-modal/r
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthorizationGuard],
+  bootstrap: [AppComponent],
+  entryComponents: [LoginModalComponent, RegistrationModalComponent]
 })
 export class AppModule { }

@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public logOut() {
+    window.location.reload();
     window.localStorage.removeItem('jwt');
     alert('You have been logged out.');
   }
@@ -20,17 +21,15 @@ export class HeaderComponent implements OnInit {
   public isJwtSet(): boolean {
     if (window.localStorage.getItem('jwt')) {
       return true;
-    } else {
-      return false;
     }
   }
 
   public openLoginModal() {
-      $('#loginModal').modal('show');
+    $('#loginModal').appendTo('body').modal('show');
   }
 
   public openRegistrationModal() {
-    $('#registrationModal').modal('show');
+    $('#registrationModal').appendTo('body').modal('show');
   }
 
 }

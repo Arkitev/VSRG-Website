@@ -18,15 +18,23 @@ export class ConnectDatabaseService {
         return this.http.post<ApiResponse>(this.baseUrl + '/login.php', loginData);
     }
 
-    // public getUsers(): Observable<ApiResponse> {
-    //     return this.http.post<ApiResponse>(this.baseUrl + '/list.php');
-    // }
-
-    // public getUserById(id: number): Observable<ApiResponse> {
-    //     return this.http.post<ApiResponse>(this.baseUrl + '/getById.php?id=' + id);
-    // }
-
     public createUser(user: UserModel): Observable<ApiResponse> {
-        return this.http.post<ApiResponse>(this.baseUrl + '/insert.php', user);
+        return this.http.post<ApiResponse>(this.baseUrl + '/insert_user.php', user);
+    }
+
+    public getUserData(jwt: any): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.baseUrl + '/get_user_data.php', jwt);
+    }
+
+    public editUserData(userData: any): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.baseUrl + '/edit_user_data.php', userData);
+    }
+
+    public changePassword(userPasswordData: any): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.baseUrl + '/change_password.php', userPasswordData);
+    }
+
+    public insertScore(submitScoreData: any): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.baseUrl + '/insert_score.php', submitScoreData);
     }
 }

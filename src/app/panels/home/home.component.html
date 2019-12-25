@@ -4,17 +4,24 @@
     <div class="mt-3">
         <h5>Submit your score</h5>
     </div>
+    <div class="text-danger mt-3" *ngIf="!isLogged">
+        <h6>Only logged users can submit scores!</h6>
+    </div>
     <hr />
-    <form>
-        <!--Game-->
+    <form [formGroup]="submitScoreForm" (ngSubmit)="onSubmit(); onReset();">
+        <!--Category-->
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="game">Category</label>
             <div class="col-sm-10">
-                <select [(ngModel)]="selectedGame" class="form-control" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let game of games">
-                        {{game.name}}
+                <select [(ngModel)]="selectedGame" class="form-control" formControlName="category" id="category" (change)="enableDanControl()">
+                    <option hidden selected></option>
+                    <option *ngFor="let category of categories">
+                        {{category.name}}
                      </option>
                 </select>
+                <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert alert-danger">
+                    <div *ngIf="category.errors.required">Category is required.</div>
+                </div>
             </div>
         </div>
 
@@ -24,8 +31,10 @@
             <div class="col-sm-10">
 
                 <ng-container [ngSwitch]="selectedGame">
-                    <div *ngSwitchCase="'osu!mania 4k - Reform Dans'">
-                        <select class="form-control" id="osu!mania">
+                    <select class="form-control" formControlName="dan" id="dan">
+                        
+                        <ng-container *ngSwitchCase="'osu!mania 4k - Reform Dans'">
+                            <option hidden selected></option>
                             <option>INTRO 1st</option>
                             <option>INTRO 2nd</option>
                             <option>INTRO 3rd</option>
@@ -44,11 +53,10 @@
                             <option>Gamma</option>
                             <option>Delta</option>
                             <option>Epsilon</option>
-                        </select>
-                    </div>
-
-                    <div *ngSwitchCase="'Beatmania IIDX - Single Play'">
-                        <select class="form-control" id="beatmania">
+                        </ng-container>   
+                            
+                        <ng-container *ngSwitchCase="'Beatmania IIDX - Single Play'">
+                            <option hidden selected></option>
                             <option>7th Kyu</option>
                             <option>6th Kyu</option>
                             <option>4th Kyu</option>
@@ -67,11 +75,10 @@
                             <option>10th</option>
                             <option>Chuuden</option>
                             <option>Kaiden</option>
-                        </select>
-                    </div>
+                        </ng-container>
 
-                    <div *ngSwitchCase="'Lunatic Rave 2 - BMS'">
-                        <select class="form-control" id="lunarrave">
+                        <ng-container *ngSwitchCase="'Lunatic Rave 2 - BMS'">
+                            <option hidden selected></option>
                             <option>1st Normal</option>
                             <option>2nd Normal</option>
                             <option>3rd Normal</option>
@@ -94,11 +101,10 @@
                             <option>10th Insane</option>
                             <option>Kaiden</option>
                             <option>Overjoy</option>
-                        </select>
-                    </div>
+                        </ng-container>
 
-                    <div *ngSwitchCase="'Dance Dance Revolution - Single Play'">
-                        <select class="form-control" id="pms">
+                        <ng-container *ngSwitchCase="'Dance Dance Revolution - Single Play'">
+                            <option hidden selected></option>
                             <option>1st</option>
                             <option>2nd</option>
                             <option>3rd</option>
@@ -110,11 +116,10 @@
                             <option>9th</option>
                             <option>10th</option>
                             <option>Kaiden</option>
-                        </select>
-                    </div>
+                        </ng-container> 
 
-                    <div *ngSwitchCase="'Sound Voltex - New Dans'">
-                        <select class="form-control" id="sdvx">
+                        <ng-container *ngSwitchCase="'Sound Voltex - New Dans'">
+                            <option hidden selected></option>
                             <option>Lv.01</option>
                             <option>Lv.02</option>
                             <option>Lv.03</option>
@@ -127,7 +132,11 @@
                             <option>Lv.10</option>
                             <option>Lv.11</option>
                             <option>Lv.∞</option>
-                        </select>
+                        </ng-container> 
+
+                    </select>
+                    <div *ngIf="dan.invalid && (dan.dirty || dan.touched)" class="alert alert-danger">
+                        <div *ngIf="dan.errors.required">Dan is required.</div>
                     </div>
                 </ng-container>
 
@@ -138,7 +147,10 @@
         <div class="form-group row ">
             <label class="col-sm-2 col-form-label" for="nickname">Nickname from game</label>
             <div class="col-sm-10">
-                <input class="form-control" id="nickname" type="text">
+                <input class="form-control" formControlName="nickname" id="nickname" type="text">
+                <div *ngIf="nickname.invalid && (nickname.dirty || nickname.touched)" class="alert alert-danger">
+                    <div *ngIf="nickname.errors.required">Nickname is required.</div>
+                </div>
             </div>
         </div>
 
@@ -146,7 +158,10 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="score">Score</label>
             <div class="col-sm-10">
-                <input class="form-control" id="score" type="number">
+                <input class="form-control" formControlName="score" id="score" type="number">
+                <div *ngIf="score.invalid && (score.dirty || score.touched)" class="alert alert-danger">
+                    <div *ngIf="score.errors.required">Score is required.</div>
+                </div>
             </div>
         </div>
 
@@ -154,11 +169,15 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="proof">Proof (link to screenshoot or video)</label>
             <div class="col-sm-10">
-                <input class="form-control" id="proof" type="url">
+                <input class="form-control" formControlName="proof" id="proof" type="url">
+                <div *ngIf="proof.invalid && (proof.dirty || proof.touched)" class="alert alert-danger">
+                    <div *ngIf="proof.errors.required">Proof is required.</div>
+                </div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary mb-3">Save changes</button>
+        <button class="btn btn-primary mb-3" type="submit" [disabled]="formDisabled || submitScoreForm.invalid">Submit score</button>
+        <div class="alert alert-success mb-3" [class.alert-danger]="!successScoreSubmit" *ngIf="message">{{message}}</div>
     </form>
 
 </div>

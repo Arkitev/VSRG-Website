@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConnectDatabaseService } from '../connect-database.service';
 import * as bootstrap from 'bootstrap';
-import { element } from 'protractor';
-import { ModalDirective } from 'ngx-bootstrap';
 
 
 @Component({
@@ -16,7 +14,7 @@ export class LoginModalComponent implements OnInit {
   loginForm: FormGroup;
   invalidLogin = false;
   message: string;
-  public jwt: any = null;
+  jwt: any;
 
 
   constructor(private formBuilder: FormBuilder, private apiService: ConnectDatabaseService) { }
@@ -43,6 +41,7 @@ export class LoginModalComponent implements OnInit {
 
         if (data.jwt) {
           this.jwt = data.jwt;
+          window.location.reload();
           window.localStorage.setItem('jwt', data.jwt);
           $('#loginModal').modal('hide');
           $('body').removeClass('modal-open');
@@ -58,14 +57,6 @@ export class LoginModalComponent implements OnInit {
   protected onReset() {
     this.loginForm.reset();
     this.message = null;
-  }
-
-  protected isJwtSet(): boolean {
-    if (this.jwt !== null) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   get email() { return this.loginForm.get('email'); }

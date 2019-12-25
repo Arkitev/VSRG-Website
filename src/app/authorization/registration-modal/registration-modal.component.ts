@@ -23,6 +23,7 @@ export class RegistrationModalComponent implements OnInit {
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       repeatedPassword: ['', [Validators.required, this.repeatedPasswordValidator()]],
+      mainGame: ['---'],
       acceptRules: [false, [Validators.pattern('true')]]
     });
   }
