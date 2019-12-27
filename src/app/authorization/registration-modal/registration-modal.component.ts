@@ -23,7 +23,7 @@ export class RegistrationModalComponent implements OnInit {
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       repeatedPassword: ['', [Validators.required, this.repeatedPasswordValidator()]],
-      mainGame: ['---'],
+      mainGame: ['', [Validators.required]],
       acceptRules: [false, [Validators.pattern('true')]]
     });
   }
@@ -44,11 +44,16 @@ export class RegistrationModalComponent implements OnInit {
   }
 
   protected onReset() {
-    $('#mainGame').val('---');
+    // $('#mainGame').val('---');
     this.registrationForm.reset();
     this.acceptRules.setValue(false);
     this.message = null;
     this.successRegist = false;
+  }
+
+  protected openLoginModal() {
+    this.onReset();
+    $('#loginModal').appendTo('body').modal('show');
   }
 
   protected repeatedPasswordValidator(): ValidatorFn {
@@ -68,5 +73,6 @@ export class RegistrationModalComponent implements OnInit {
   get username() { return this.registrationForm.get('username'); }
   get password() { return this.registrationForm.get('password'); }
   get repeatedPassword() { return this.registrationForm.get('repeatedPassword'); }
+  get mainGame() { return this.registrationForm.get('mainGame'); }
   get acceptRules() { return this.registrationForm.get('acceptRules'); }
 }

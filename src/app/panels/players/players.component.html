@@ -1,7 +1,23 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Players Component</h1>
+            <h1 class="text-center">Players</h1>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap">
+        <div class="card bg-dark m-2" *ngFor="let player of this.players">
+            <div class="card-body text-white">
+                <span class="card-text font-weight-bold">Username: </span>
+                <span class="card-text">{{player.username}}</span>
+                <br />
+                <span class="card-text font-weight-bold mt-3">Main game: </span>
+                <span class="card-text">{{player.mainGame}}</span>
+                <br />
+                <span class="card-text font-weight-bold">Scores submitted: </span>
+                <span class="card-text">{{player.approvedScoresQuantity}}</span>
+                <br />
+            </div>
         </div>
     </div>
 </div>

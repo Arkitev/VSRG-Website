@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ConnectDatabaseService } from 'src/app/authorization/connect-database.service';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-user-panel',
@@ -16,6 +17,11 @@ export class UserPanelComponent implements OnInit {
   messagePassword: string;
   successEditData: boolean;
   successChangePassword: boolean;
+  roleIsAdmin: boolean;
+  approvedScores: any;
+  pendingScores: any;
+  hasApprovedScores: boolean;
+  hasPendingScores: boolean;
 
   constructor(private formBuilder: FormBuilder, private apiService: ConnectDatabaseService) { }
 
@@ -24,33 +30,70 @@ export class UserPanelComponent implements OnInit {
       id: [],
       email: ['', [Validators.required]],
       username: ['', [Validators.required]],
-      mainGame: ['---']
+      mainGame: ['']
     });
-
     this.changePasswordForm = this.formBuilder.group({
       id: [],
       currentPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
       repeatedPassword: ['', [Validators.required, this.repeatedPasswordValidator()]]
     });
-
-    this.jwt = localStorage.getItem('jwt');
+    this.jwt = window.localStorage.getItem('jwt');
     this.message = null;
     this.messagePassword = null;
     this.setUserData();
+    this.setApprovedScores();
+    this.setPendingScores();
+  }
+
+  protected setUserData() {
+    this.apiService.getUserData(this.jwt).subscribe((data: any) => {
+      this.email.setValue(data.email);
+      this.username.setValue(data.username);
+      this.mainGame.setValue(data.mainGame);
+      // tslint:disable-next-line: triple-equals
+      if (data.role == 'admin') {
+        this.roleIsAdmin = true;
+      }
+    });
+  }
+
+  protected setApprovedScores() {
+    const settingScoreData = {
+      isScoreApproved: 'true',
+      jwt: this.jwt
+    };
+    this.apiService.getScores(settingScoreData).subscribe((data: any) => {
+      if (data.length !== 0) {
+        this.hasApprovedScores = true;
+        this.approvedScores = data;
+      }
+    });
+  }
+
+  protected setPendingScores() {
+    const settingScoreData = {
+      isScoreApproved: 'false',
+      jwt: this.jwt
+    };
+    this.apiService.getScores(settingScoreData).subscribe((data: any) => {
+      if (data.length !== 0) {
+        this.hasPendingScores = true;
+        this.pendingScores = data;
+      }
+    });
   }
 
   protected onSavePersonalInformation() {
     const userData = {
       email: this.personalInformationForm.controls.email.value,
       username: this.personalInformationForm.controls.username.value,
-      mainGame: this.personalInformationForm.controls.mainGame.value
+      mainGame: this.personalInformationForm.controls.mainGame.value,
+      jwt: this.jwt
     };
-
     this.apiService.editUserData(userData).subscribe((data: any) => {
       this.message = data.message;
       this.successEditData = data.successEditData;
-
       if (data.jwt) {
         window.localStorage.setItem('jwt', data.jwt);
         this.jwt = data.jwt;
@@ -64,34 +107,47 @@ export class UserPanelComponent implements OnInit {
       currentPassword: this.changePasswordForm.controls.currentPassword.value,
       newPassword: this.changePasswordForm.controls.newPassword.value
     };
-
     this.apiService.changePassword(userPasswordData).subscribe((data: any) => {
       this.messagePassword = data.messagePassword;
       this.successChangePassword = data.successChangePassword;
     });
   }
 
-  protected setUserData() {
-    this.apiService.getUserData(this.jwt).subscribe((data: any) => {
-      this.email.setValue(data.email);
-      this.username.setValue(data.username);
-      this.mainGame.setValue(data.mainGame);
-    });
+  protected onResetPasswordForm() {
+    this.changePasswordForm.reset();
   }
 
-  protected onReset() {
-    this.changePasswordForm.reset();
+  protected onApproveScore(scoreId: number) {
+    const score = {
+      scoreID: scoreId,
+      approved: true
+    };
+    if (confirm('Are you sure to approve this score?')) {
+      this.apiService.manageScore(score).subscribe((data: any) => {
+        window.location.reload();
+      });
+    }
+  }
+
+  protected onDiscardScore(scoreId: number) {
+    const score = {
+      scoreID: scoreId,
+      approved: false
+    };
+    if (confirm('Are you sure to discard this score?')) {
+      this.apiService.manageScore(score).subscribe((data: any) => {
+        window.location.reload();
+      });
+    }
   }
 
   protected repeatedPasswordValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       let invalid = false;
-
       if (this.changePasswordForm && this.changePasswordForm.get('newPassword')
       && this.changePasswordForm.get('newPassword').value !== control.value) {
         invalid = true;
       }
-
       return invalid ? { repeatedPassword: { value: control.value } } : null;
     };
   }
@@ -99,9 +155,7 @@ export class UserPanelComponent implements OnInit {
   get email() { return this.personalInformationForm.get('email'); }
   get username() { return this.personalInformationForm.get('username'); }
   get mainGame() { return this.personalInformationForm.get('mainGame'); }
-
   get currentPassword() { return this.changePasswordForm.get('currentPassword'); }
   get newPassword() { return this.changePasswordForm.get('newPassword'); }
   get repeatedPassword() { return this.changePasswordForm.get('repeatedPassword'); }
-
 }

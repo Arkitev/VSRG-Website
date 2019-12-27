@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConnectDatabaseService } from 'src/app/authorization/connect-database.service';
 
 @Component({
   selector: 'app-players',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayersComponent implements OnInit {
 
-  constructor() { }
+  players: any;
+
+  constructor(private apiService: ConnectDatabaseService) { }
 
   ngOnInit() {
+    this.apiService.getUsers().subscribe((data: any) => {
+      this.players = Object.values(data);
+    });
   }
 
 }

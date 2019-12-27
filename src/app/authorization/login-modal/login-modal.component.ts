@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConnectDatabaseService } from '../connect-database.service';
 import * as bootstrap from 'bootstrap';
 
-
 @Component({
   selector: 'app-login-modal',
   templateUrl: './login-modal.component.html',
@@ -15,7 +14,6 @@ export class LoginModalComponent implements OnInit {
   invalidLogin = false;
   message: string;
   jwt: any;
-
 
   constructor(private formBuilder: FormBuilder, private apiService: ConnectDatabaseService) { }
 
@@ -57,6 +55,11 @@ export class LoginModalComponent implements OnInit {
   protected onReset() {
     this.loginForm.reset();
     this.message = null;
+  }
+
+  protected openRegistrationModal() {
+    this.onReset();
+    $('#registrationModal').appendTo('body').modal('show');
   }
 
   get email() { return this.loginForm.get('email'); }

@@ -6,23 +6,10 @@
         </div>
     </div>
 
-    <!--Nav-tabs-->
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" href="#myAccount" data-toggle="tab">My Account</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#Scores" data-toggle="tab">Scores</a>
-        </li>
-    </ul>
-
-    <!--Tabs-content-->
-    <div class="container">
-        <div class="tab-content">
-
-            <!--My-Account-tab-->
-            <div class="tab-pane active" id="myAccount">
-
+    <mat-tab-group>
+        <!--My-Account-tab-->
+        <mat-tab label="My Account">
+            <div class="container">
                 <!--Personal-Information-->
                 <div class="mt-3">
                     <h5>Personal Information</h5>
@@ -48,7 +35,6 @@
                         <label class="col-sm-2 col-form-label" for="mainGameUP">Main game</label>
                         <div class="col-sm-10">
                             <select class="form-control" formControlName="mainGame" id="mainGameUP" required>
-                                <option selected>---</option>
                                 <option>osu!mania</option>
                                 <option>Beatmania IIDX</option>
                                 <option>Lunatic Rave 2</option>
@@ -60,13 +46,12 @@
                     <button class="btn btn-primary" [disabled]="personalInformationForm.invalid || !personalInformationForm.dirty" type="submit">Save changes</button>
                     <div class="alert alert-success mt-3" [class.alert-danger]="!successEditData" *ngIf="message">{{message}}</div>
                 </form>
-
-                <!--Change-password-->
+                <!--Change-Password-->
                 <div class="mt-5">
                     <h5>Change Password</h5>
                 </div>
                 <hr/>
-                <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword(); onReset();">
+                <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword(); onResetPasswordForm();">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="currentPassword">Current password</label>
                         <div class="col-sm-10">
@@ -96,108 +81,91 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary mb-5" [disabled]="changePasswordForm.invalid" type="submit">Save changes</button>
+                    <button class="btn btn-primary" [disabled]="changePasswordForm.invalid" type="submit">Save changes</button>
                     <div class="alert alert-success mt-3" [class.alert-danger]="!successChangePassword" *ngIf="messagePassword">{{messagePassword}}</div>
-
                 </form>
             </div>
+        </mat-tab>
 
-            <!--Scores-tab-->
-            <div class="tab-pane" id="Scores">
-                <div class="d-flex flex-wrap">
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-white">
-                            <img src="https://i.imgur.com/t9aCl5G.png" alt="osumania_logo">
-                            <br />
-                            <br />
-                            <span class="card-text font-weight-bold">Category: </span>
-                            <span class="card-text">osu!mania 4k - Reform Dans</span>
-                            <br />
-                            <span class="card-text font-weight-bold">Dan: </span>
-                            <span class="card-text">Alpha</span>
-                            <br />
-                            <span class="card-text font-weight-bold">Nickname: </span>
-                            <span class="card-text">Arkitev</span>
-                            <br />
-                            <span class="card-text font-weight-bold">Score: </span>
-                            <span class="card-text">96.94%</span>
-                            <br />
-                            <span class="card-text font-weight-bold">Proof: </span>
-                            <a class="card-text" href="https://youtu.be/byAWcHkrGDc">https://youtu.be/byAWcHkrGDc</a>
-                            <br />
-                        </div>
+        <!--Scores-tab-->
+        <mat-tab label="Scores">
+            <div class="alert alert-info m-3" *ngIf="!hasApprovedScores">
+                <h6 class="text-center">You have no scores approved or submitted yet. Go to submission score form to show off your results! :)</h6>
+            </div>
+            <div class="d-flex flex-wrap">
+                <div class="card bg-dark m-2 " *ngFor="let score of this.approvedScores ">
+                    <div class="card-body text-white ">
+                        <ng-container [ngSwitch]="score.category ">
+                            <ng-container *ngSwitchCase=" 'osu!mania 4k - Reform Dans' "><img src="https://i.imgur.com/SjL3d1G.png " alt="osu!mania_logo " width="75 " height="75 " mb-3></ng-container>
+                            <ng-container *ngSwitchCase=" 'Beatmania IIDX - Single Play' "><img src="https://i.imgur.com/ewYXRtf.png " alt="beatmaniaiidx_logo " width="75 " height="75 " mb-3></ng-container>
+                            <ng-container *ngSwitchCase=" 'Lunatic Rave 2 - BMS' "><img src="https://i.imgur.com/X9OjJvP.png " alt="lunaticrave2_logo " width="75 " height="75 " mb-3></ng-container>
+                            <ng-container *ngSwitchCase=" 'Dance Dance Revolution - Single Play' "><img src="https://i.imgur.com/qMhfBCT.png " alt="dancedancerevolution_logo " width="175 " height="75 " mb-3></ng-container>
+                            <ng-container *ngSwitchCase=" 'Sound Voltex - New Dans' "><img src="https://i.imgur.com/dwuvTuQ.png " alt="soundvoltex_logo " width="93 " height="75 " mb-3></ng-container>
+                        </ng-container>
+                        <br />
+                        <br />
+                        <span class="card-text font-weight-bold mt-3 ">Category: </span>
+                        <span class="card-text ">{{score.category}}</span>
+                        <br />
+                        <span class="card-text font-weight-bold ">Dan: </span>
+                        <span class="card-text ">{{score.dan}}</span>
+                        <br />
+                        <span class="card-text font-weight-bold ">Nickname: </span>
+                        <span class="card-text ">{{score.nickname}}</span>
+                        <br />
+                        <span class="card-text font-weight-bold ">Score: </span>
+                        <span class="card-text ">{{score.score}}</span>
+                        <br />
+                        <span class="card-text font-weight-bold ">Proof: </span>
+                        <a class="card-text " href="{{score.proof}} " target="_blank ">Show</a>
+                        <br />
                     </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
-                    <div class="card bg-dark m-2">
-                        <div class="card-body text-center text-white">
-                            <p class="card-text">Some text inside the first card</p>
-                        </div>
-                    </div>
-
+                    <button class="btn btn-danger" type="submit" (click)="onDiscardScore(score.id)">Delete score</button>
                 </div>
             </div>
+        </mat-tab>
 
-        </div>
-    </div>
+        <!--Pending-Scores-tab-->
+        <mat-tab label="Pending Scores" *ngIf="roleIsAdmin">
+            <div class="alert alert-info m-3" *ngIf="!hasPendingScores">
+                <h6 class="text-center">There is no score waiting for submission.</h6>
+            </div>
+            <div class="d-flex flex-wrap">
+                <div class="card bg-dark m-2" *ngFor="let score of this.pendingScores">
+                    <div class="card-body text-white">
+                        <ng-container [ngSwitch]="score.category">
+                            <ng-container *ngSwitchCase="'osu!mania 4k - Reform Dans'"><img src="https://i.imgur.com/SjL3d1G.png" alt="osu!mania_logo" width="75" height="75" mb-3></ng-container>
+                            <ng-container *ngSwitchCase="'Beatmania IIDX - Single Play'"><img src="https://i.imgur.com/ewYXRtf.png" alt="beatmaniaiidx_logo" width="75" height="75" mb-3></ng-container>
+                            <ng-container *ngSwitchCase="'Lunatic Rave 2 - BMS'"><img src="https://i.imgur.com/X9OjJvP.png" alt="lunaticrave2_logo" width="75" height="75" mb-3></ng-container>
+                            <ng-container *ngSwitchCase="'Dance Dance Revolution - Single Play'"><img src="https://i.imgur.com/qMhfBCT.png" alt="dancedancerevolution_logo" width="175" height="75" mb-3></ng-container>
+                            <ng-container *ngSwitchCase="'Sound Voltex - New Dans'"><img src="https://i.imgur.com/dwuvTuQ.png" alt="soundvoltex_logo" width="93" height="75" mb-3></ng-container>
+                        </ng-container>
+                        <br />
+                        <br />
+                        <span class="card-text font-weight-bold mt-3">From: </span>
+                        <span class="card-text">{{score.email}}</span>
+                        <br />
+                        <span class="card-text font-weight-bold mt-3">Category: </span>
+                        <span class="card-text">{{score.category}}</span>
+                        <br />
+                        <span class="card-text font-weight-bold">Dan: </span>
+                        <span class="card-text">{{score.dan}}</span>
+                        <br />
+                        <span class="card-text font-weight-bold">Nickname: </span>
+                        <span class="card-text">{{score.nickname}}</span>
+                        <br />
+                        <span class="card-text font-weight-bold">Score: </span>
+                        <span class="card-text">{{score.score}}</span>
+                        <br />
+                        <span class="card-text font-weight-bold">Proof: </span>
+                        <a class="card-text" href="{{score.proof}}" target="_blank">Show</a>
+                        <br />
+                    </div>
+                    <button class="btn btn-success" type="submit" (click)="onApproveScore(score.id)">Approve</button>
+                    <button class="btn btn-danger" type="submit" (click)="onDiscardScore(score.id)">Discard</button>
+                </div>
+            </div>
+        </mat-tab>
+
+    </mat-tab-group>
 </div>

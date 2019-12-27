@@ -3,8 +3,8 @@
     width: 100%;
 }
 
-.card-body {
+.card {
     font-size: 17px;
-    height: 340px;
-    width: 340px;
+    min-height: 342px;
+    width: 342px;
 }

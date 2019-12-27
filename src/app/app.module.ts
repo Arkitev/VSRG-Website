@@ -13,6 +13,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { LoginModalComponent } from './authorization/login-modal/login-modal.component';
 import { RegistrationModalComponent } from './authorization/registration-modal/registration-modal.component';
 import { AuthorizationGuard } from './authorization/authorization-guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -30,10 +32,12 @@ import { AuthorizationGuard } from './authorization/authorization-guard';
     ModalModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatTabsModule
   ],
   providers: [AuthorizationGuard],
   bootstrap: [AppComponent],
-  entryComponents: [LoginModalComponent, RegistrationModalComponent]
+  entryComponents: []
 })
 export class AppModule { }

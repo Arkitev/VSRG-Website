@@ -17,12 +17,21 @@ export class HomeComponent implements OnInit {
   message: string;
 
   categories = [
-    { name: 'osu!mania 4k - Reform Dans', value: 'osu!mania 4k - Reform Dans' },
-    { name: 'Beatmania IIDX - Single Play', value: 'Beatmania IIDX - Single Play' },
-    { name: 'Lunatic Rave 2 - BMS', value: 'Lunatic Rave 2 - BMS' },
-    { name: 'Dance Dance Revolution - Single Play', value: 'Dance Dance Revolution - Single Play' },
-    { name: 'Sound Voltex - New Dans', value: 'Sound Voltex - New Dans' }
+    { name: 'osu!mania 4k - Reform Dans', value: 'osu!mania 4k - Reform Dans', game: 'osu!mania' },
+    { name: 'Beatmania IIDX - Single Play', value: 'Beatmania IIDX - Single Play', game: 'Beatmania IIDX' },
+    { name: 'Lunatic Rave 2 - BMS', value: 'Lunatic Rave 2 - BMS', game: 'Lunatic Rave 2' },
+    { name: 'Dance Dance Revolution - Single Play', value: 'Dance Dance Revolution - Single Play', game: 'Dance Dance Revolution' },
+    { name: 'Sound Voltex - New Dans', value: 'Sound Voltex - New Dans', game: 'Sound Voltex' }
   ];
+
+  // tslint:disable-next-line: max-line-length
+  omDans = ['INTRO 1st', 'INTRO 2nd', 'INTRO 3rd', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', 'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon'];
+  // tslint:disable-next-line: max-line-length
+  bmsDans = ['7th Kyu', '6th Kyu', '5th Kyu', '4th Kyu', '3rd Kyu', '2nd Kyu', '1st Kyu', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', 'Chuuden', 'Kaiden'];
+  // tslint:disable-next-line: max-line-length
+  lrDans = ['1st Normal', '2nd Normal', '3rd Normal', '4th Normal', '5th Normal', '6th Normal', '7th Normal', '8th Normal', '9th Normal', '10th Normal', '1st Insane', '2nd Insane', '3rd Insane', '4th Insane', '5th Insane', '6th Insane', '7th Insane', '8th Insane', '9th Insane', '10th Insane', 'Kaiden', 'Overjoy'];
+  ddrDans = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th', 'Kaiden'];
+  sdvxDans = ['Lv.01', 'Lv.02', 'Lv.03', 'Lv.04', 'Lv.05', 'Lv.06', 'Lv.07', 'Lv.08', 'Lv.09', 'Lv.10', 'Lv.11', 'Lv.∞'];
 
   constructor(private formBuilder: FormBuilder, private apiService: ConnectDatabaseService) { }
 
@@ -35,13 +44,12 @@ export class HomeComponent implements OnInit {
       score: ['', [Validators.required]],
       proof: ['', [Validators.required]]
     });
-
-    this.submitScoreForm.get('dan').disable();
-
     if (!window.localStorage.getItem('jwt')) {
       this.submitScoreForm.disable();
       this.formDisabled = true;
       this.isLogged = false;
+    } else {
+    this.setDefaultForm();
     }
   }
 
@@ -63,13 +71,22 @@ export class HomeComponent implements OnInit {
 
   protected onReset() {
     this.submitScoreForm.reset();
-    this.submitScoreForm.get('dan').disable();
+    this.setDefaultForm();
     this.message = null;
     this.successScoreSubmit = false;
   }
 
-  protected enableDanControl() {
-    this.submitScoreForm.get('dan').enable();
+  protected setDefaultForm() {
+    this.apiService.getUserData(window.localStorage.getItem('jwt')).subscribe((data: any) => {
+      this.nickname.setValue(data.username);
+      this.categories.forEach((category) => {
+        switch (data.mainGame) {
+          case (category.game): {
+            this.category.setValue(category.name);
+          }
+        }
+     });
+    });
   }
 
   get category() { return this.submitScoreForm.get('category'); }

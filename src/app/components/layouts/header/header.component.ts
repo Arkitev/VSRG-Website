@@ -13,9 +13,10 @@ export class HeaderComponent implements OnInit {
   }
 
   public logOut() {
-    window.location.reload();
-    window.localStorage.removeItem('jwt');
-    alert('You have been logged out.');
+    if (confirm('Are you sure you want to sign out? :(')) {
+      window.localStorage.removeItem('jwt');
+      window.location.reload();
+    }
   }
 
   public isJwtSet(): boolean {

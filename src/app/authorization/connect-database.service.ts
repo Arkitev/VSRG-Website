@@ -37,4 +37,16 @@ export class ConnectDatabaseService {
     public insertScore(submitScoreData: any): Observable<ApiResponse> {
         return this.http.post<ApiResponse>(this.baseUrl + '/insert_score.php', submitScoreData);
     }
+
+    public getScores(settingScoreData: any): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.baseUrl + '/get_scores.php', settingScoreData);
+    }
+
+    public manageScore(score: any): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.baseUrl + '/manage_scores.php', score);
+    }
+
+    public getUsers(): Observable<ApiResponse> {
+        return this.http.get<ApiResponse>(this.baseUrl + '/get_users.php');
+    }
 }

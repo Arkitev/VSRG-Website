@@ -1,6 +1,7 @@
 <app-carousel></app-carousel>
 
 <div class="container">
+
     <div class="mt-3">
         <h5>Submit your score</h5>
     </div>
@@ -8,12 +9,14 @@
         <h6>Only logged users can submit scores!</h6>
     </div>
     <hr />
+
     <form [formGroup]="submitScoreForm" (ngSubmit)="onSubmit(); onReset();">
+
         <!--Category-->
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="game">Category</label>
             <div class="col-sm-10">
-                <select [(ngModel)]="selectedGame" class="form-control" formControlName="category" id="category" (change)="enableDanControl()">
+                <select [(ngModel)]="selectedGame" class="form-control" formControlName="category" id="category">
                     <option hidden selected></option>
                     <option *ngFor="let category of categories">
                         {{category.name}}
@@ -35,103 +38,27 @@
                         
                         <ng-container *ngSwitchCase="'osu!mania 4k - Reform Dans'">
                             <option hidden selected></option>
-                            <option>INTRO 1st</option>
-                            <option>INTRO 2nd</option>
-                            <option>INTRO 3rd</option>
-                            <option>1st</option>
-                            <option>2nd</option>
-                            <option>3rd</option>
-                            <option>4th</option>
-                            <option>5th</option>
-                            <option>6th</option>
-                            <option>7th</option>
-                            <option>8th</option>
-                            <option>9th</option>
-                            <option>10th</option>
-                            <option>Alpha</option>
-                            <option>Beta</option>
-                            <option>Gamma</option>
-                            <option>Delta</option>
-                            <option>Epsilon</option>
+                            <option *ngFor="let dan of omDans">{{dan}}</option>
                         </ng-container>   
                             
                         <ng-container *ngSwitchCase="'Beatmania IIDX - Single Play'">
                             <option hidden selected></option>
-                            <option>7th Kyu</option>
-                            <option>6th Kyu</option>
-                            <option>4th Kyu</option>
-                            <option>3rd Kyu</option>
-                            <option>2nd Kyu</option>
-                            <option>1st Kyu</option>
-                            <option>1st</option>
-                            <option>2nd</option>
-                            <option>3rd</option>
-                            <option>4th</option>
-                            <option>5th</option>
-                            <option>6th</option>
-                            <option>7th</option>
-                            <option>8th</option>
-                            <option>9th</option>
-                            <option>10th</option>
-                            <option>Chuuden</option>
-                            <option>Kaiden</option>
+                            <option *ngFor="let dan of bmsDans">{{dan}}</option>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'Lunatic Rave 2 - BMS'">
                             <option hidden selected></option>
-                            <option>1st Normal</option>
-                            <option>2nd Normal</option>
-                            <option>3rd Normal</option>
-                            <option>4th Normal</option>
-                            <option>5th Normal</option>
-                            <option>6th Normal</option>
-                            <option>7th Normal</option>
-                            <option>8th Normal</option>
-                            <option>9th Normal</option>
-                            <option>10th Normal</option>
-                            <option>1st Insane</option>
-                            <option>2nd Insane</option>
-                            <option>3rd Insane</option>
-                            <option>4th Insane</option>
-                            <option>5th Insane</option>
-                            <option>6th Insane</option>
-                            <option>7th Insane</option>
-                            <option>8th Insane</option>
-                            <option>9th Insane</option>
-                            <option>10th Insane</option>
-                            <option>Kaiden</option>
-                            <option>Overjoy</option>
+                            <option *ngFor="let dan of lrDans">{{dan}}</option>
                         </ng-container>
 
                         <ng-container *ngSwitchCase="'Dance Dance Revolution - Single Play'">
                             <option hidden selected></option>
-                            <option>1st</option>
-                            <option>2nd</option>
-                            <option>3rd</option>
-                            <option>4th</option>
-                            <option>5th</option>
-                            <option>6th</option>
-                            <option>7th</option>
-                            <option>8th</option>
-                            <option>9th</option>
-                            <option>10th</option>
-                            <option>Kaiden</option>
+                            <option *ngFor="let dan of ddrDans">{{dan}}</option>
                         </ng-container> 
 
                         <ng-container *ngSwitchCase="'Sound Voltex - New Dans'">
                             <option hidden selected></option>
-                            <option>Lv.01</option>
-                            <option>Lv.02</option>
-                            <option>Lv.03</option>
-                            <option>Lv.04</option>
-                            <option>Lv.05</option>
-                            <option>Lv.06</option>
-                            <option>Lv.07</option>
-                            <option>Lv.08</option>
-                            <option>Lv.09</option>
-                            <option>Lv.10</option>
-                            <option>Lv.11</option>
-                            <option>Lv.∞</option>
+                            <option *ngFor="let dan of sdvxDans">{{dan}}</option>
                         </ng-container> 
 
                     </select>
