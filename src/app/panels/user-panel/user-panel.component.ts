@@ -12,10 +12,12 @@ export class UserPanelComponent implements OnInit {
 
   personalInformationForm: FormGroup;
   changePasswordForm: FormGroup;
+  deleteAccountForm: FormGroup;
   jwt: any;
   message: string;
-  messagePassword: string;
   successEditData: boolean;
+  messagePassword: string;
+  isAccountDeleted = true;
   successChangePassword: boolean;
   roleIsAdmin: boolean;
   approvedScores: any;
@@ -38,7 +40,15 @@ export class UserPanelComponent implements OnInit {
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
       repeatedPassword: ['', [Validators.required, this.repeatedPasswordValidator()]]
     });
+    this.deleteAccountForm = this.formBuilder.group({
+      id: [],
+      password: ['', [Validators.required]]
+    });
     this.jwt = window.localStorage.getItem('jwt');
+        // tslint:disable-next-line: triple-equals
+    if (window.localStorage.getItem('role') == 'admin') {
+      this.roleIsAdmin = true;
+    }
     this.message = null;
     this.messagePassword = null;
     this.setUserData();
@@ -51,10 +61,6 @@ export class UserPanelComponent implements OnInit {
       this.email.setValue(data.email);
       this.username.setValue(data.username);
       this.mainGame.setValue(data.mainGame);
-      // tslint:disable-next-line: triple-equals
-      if (data.role == 'admin') {
-        this.roleIsAdmin = true;
-      }
     });
   }
 
@@ -117,6 +123,28 @@ export class UserPanelComponent implements OnInit {
     this.changePasswordForm.reset();
   }
 
+  protected onDeleteAccount() {
+    const passwordData = {
+      email: this.personalInformationForm.controls.email.value,
+      password: this.deleteAccountForm.controls.password.value,
+      jwt: this.jwt
+    };
+    if (confirm('Are you sure to delete your account? This process is irreversible.')) {
+      this.apiService.deleteAccount(passwordData).subscribe((data: any) => {
+        this.isAccountDeleted = data.isAccountDeleted;
+        if (this.isAccountDeleted) {
+          window.localStorage.removeItem('jwt');
+          window.localStorage.removeItem('role');
+          window.location.reload();
+        }
+      });
+    }
+  }
+
+  protected onResetDeleteAccountForm() {
+    this.deleteAccountForm.reset();
+  }
+
   protected onApproveScore(scoreId: number) {
     const score = {
       scoreID: scoreId,
@@ -158,4 +186,5 @@ export class UserPanelComponent implements OnInit {
   get currentPassword() { return this.changePasswordForm.get('currentPassword'); }
   get newPassword() { return this.changePasswordForm.get('newPassword'); }
   get repeatedPassword() { return this.changePasswordForm.get('repeatedPassword'); }
+  get password() { return this.deleteAccountForm.get('password'); }
 }

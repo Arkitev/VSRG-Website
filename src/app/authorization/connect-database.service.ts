@@ -49,4 +49,8 @@ export class ConnectDatabaseService {
     public getUsers(): Observable<ApiResponse> {
         return this.http.get<ApiResponse>(this.baseUrl + '/get_users.php');
     }
+
+    public deleteAccount(passwordData: any): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.baseUrl + '/delete_account.php', passwordData);
+    }
 }

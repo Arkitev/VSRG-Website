@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+  emailText = 'arkitevg@gmail.com';
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  protected copyEmail(emailText: any) {
+    emailText.select();
+    document.execCommand('copy');
+    emailText.setSelectionRange(0, 0);
+  }
 }

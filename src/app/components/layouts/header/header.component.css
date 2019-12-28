@@ -67,3 +67,12 @@
     color: white !important;
     cursor: pointer;
 }
+
+.submit-score {
+    color: #1fc7e0 !important;
+    font-weight: 600;
+}
+
+.submit-score:hover {
+    color: #78dded !important;
+}

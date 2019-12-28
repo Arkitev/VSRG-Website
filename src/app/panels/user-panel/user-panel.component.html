@@ -50,7 +50,7 @@
                 <div class="mt-5">
                     <h5>Change Password</h5>
                 </div>
-                <hr/>
+                <hr />
                 <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword(); onResetPasswordForm();">
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="currentPassword">Current password</label>
@@ -84,6 +84,24 @@
                     <button class="btn btn-primary" [disabled]="changePasswordForm.invalid" type="submit">Save changes</button>
                     <div class="alert alert-success mt-3" [class.alert-danger]="!successChangePassword" *ngIf="messagePassword">{{messagePassword}}</div>
                 </form>
+                <!--Delete-Account-->
+                <div class="mt-5">
+                    <h5>Delete Account</h5>
+                </div>
+                <hr/>
+                <form [formGroup]="deleteAccountForm" (ngSubmit)="onDeleteAccount(); onResetDeleteAccountForm();">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label" for="password">Password</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" formControlName="password" id="password" type="password">
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                                <div *ngIf="password.errors.required">Password is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger" [disabled]="deleteAccountForm.invalid" type="submit">Delete your account</button>
+                    <div class="alert alert-danger mt-3" *ngIf="!isAccountDeleted">Incorrect password.</div>
+                </form>
             </div>
         </mat-tab>
 
@@ -103,6 +121,9 @@
                             <ng-container *ngSwitchCase=" 'Sound Voltex - New Dans' "><img src="https://i.imgur.com/dwuvTuQ.png " alt="soundvoltex_logo " width="93 " height="75 " mb-3></ng-container>
                         </ng-container>
                         <br />
+                        <br />
+                        <span class="card-text font-weight-bold mt-3 ">Time: </span>
+                        <span class="card-text ">{{score.time}}</span>
                         <br />
                         <span class="card-text font-weight-bold mt-3 ">Category: </span>
                         <span class="card-text ">{{score.category}}</span>
@@ -145,6 +166,13 @@
                         <span class="card-text font-weight-bold mt-3">From: </span>
                         <span class="card-text">{{score.email}}</span>
                         <br />
+                        <span class="card-text font-weight-bold mt-3">Username: </span>
+                        <span class="card-text">{{score.username}}</span>
+                        <br />
+                        <span class="card-text font-weight-bold mt-3">Time: </span>
+                        <span class="card-text">{{score.time}}</span>
+                        <br />
+                        <hr />
                         <span class="card-text font-weight-bold mt-3">Category: </span>
                         <span class="card-text">{{score.category}}</span>
                         <br />

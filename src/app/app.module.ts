@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap';
 
 import { AppRoutingModule, routingComponents } from './app-routing.module';
@@ -15,6 +15,8 @@ import { RegistrationModalComponent } from './authorization/registration-modal/r
 import { AuthorizationGuard } from './authorization/authorization-guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -31,12 +33,14 @@ import { MatTabsModule } from '@angular/material/tabs';
     FormsModule,
     ModalModule.forRoot(),
     ReactiveFormsModule,
+    NgbModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTabsModule
+    MatTabsModule,
+    ClipboardModule
   ],
-  providers: [AuthorizationGuard],
+  providers: [ AuthorizationGuard ],
   bootstrap: [AppComponent],
   entryComponents: []
 })

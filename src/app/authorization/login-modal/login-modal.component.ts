@@ -36,11 +36,11 @@ export class LoginModalComponent implements OnInit {
 
     this.apiService.login(loginData).subscribe((data: any) => {
         this.message = data.message;
-
         if (data.jwt) {
           this.jwt = data.jwt;
           window.location.reload();
           window.localStorage.setItem('jwt', data.jwt);
+          window.localStorage.setItem('role', data.role);
           $('#loginModal').modal('hide');
           $('body').removeClass('modal-open');
           $('.modal-backdrop').fadeOut(150);

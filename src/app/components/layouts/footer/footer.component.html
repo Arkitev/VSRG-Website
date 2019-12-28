@@ -1,10 +1,13 @@
+<ng-template #popContent>arkitevg@gmail.com <a ngxClipboard [cbContent]="emailText"><i class="far fa-copy pointer"></i></a></ng-template>
+<ng-template #popTitle><b class="text-secondary">E-mail</b></ng-template>
+
 <footer id="footer">
     <div class="container">
         <div class="row py-3">
             <div class="col-md-4 my-2 my-md-0 order-md-last">
                 <div class="d-flex justify-content-center justify-content-md-end">
-                    <a class="links mr-2" href="#">Rankings</a>
-                    <a class="links" href="#">Downloads</a>
+                    <a class="ark-links mr-2" tabIndex="0" [autoClose]="'outside'" [ngbPopover]="popContent" [popoverTitle]="popTitle">Contact</a>
+                    <a class="ark-links mr-2" routerLink="/rules">Rules</a>
                 </div>
             </div>
             <div class="col-md-4 my-2 my-md-0">
@@ -14,10 +17,9 @@
             </div>
             <div class="col-md-4 my-2 my-md-0 order-md-first">
                 <div class="d-flex justify-content-center justify-content-md-start">
-                    <a class="ark-btn-socials mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="ark-btn-socials mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                    <a class="ark-btn-socials mr-4" href="#"><i class="fab fa-youtube"></i></a>
-                    <a class="contact" href="#">Contact</a>
+                    <a class="ark-btn-socials mr-2" href="https://www.facebook.com/arkitevg" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a class="ark-btn-socials mr-2" href="https://twitter.com/_Arkitev" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a class="ark-btn-socials mr-4" href="https://www.youtube.com/user/gora10255" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>

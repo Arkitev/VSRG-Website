@@ -12,6 +12,7 @@ import { RankingsComponent } from './panels/rankings/rankings.component';
 import { DownloadsComponent } from './panels/downloads/downloads.component';
 import { UserPanelComponent } from './panels/user-panel/user-panel.component';
 import { AuthorizationGuard } from './authorization/authorization-guard';
+import { RulesComponent } from './panels/rules/rules.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'rankings', component: RankingsComponent },
   { path: 'downloads', component: DownloadsComponent },
   { path: 'user-panel', component: UserPanelComponent, canActivate: [AuthorizationGuard] },
+  { path: 'rules', component: RulesComponent },
   { path: '**', redirectTo: '/home' }
 ];
 
@@ -36,4 +38,4 @@ const routes: Routes = [
 export class AppRoutingModule { }
 export const routingComponents = [ HomeComponent,
    OsumaniaComponent, BeatmaniaiidxComponent, LunaticraveComponent, DdrComponent, SoundvoltexComponent,
-    PlayersComponent, EventsComponent, RankingsComponent, DownloadsComponent, UserPanelComponent ];
+    PlayersComponent, EventsComponent, RankingsComponent, DownloadsComponent, UserPanelComponent, RulesComponent ];
