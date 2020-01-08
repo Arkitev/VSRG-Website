@@ -11,13 +11,14 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+      $('.dropdown-toggle').dropdown();
   }
 
   public logOut() {
     if (confirm('Are you sure you want to sign out? :(')) {
+      window.location.reload();
       window.localStorage.removeItem('jwt');
       window.localStorage.removeItem('role');
-      window.location.reload();
     }
   }
 

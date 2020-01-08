@@ -1,7 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ConnectDatabaseService } from 'src/app/authorization/connect-database.service';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
+
+export interface CardScore {
+  time: string;
+  category: string;
+  dan: string;
+  nickname: string;
+  score: number;
+  proof: string;
+}
+
+export interface CardPendingScore {
+  email: string;
+  username: string;
+  time: string;
+  category: string;
+  dan: string;
+  nickname: string;
+  score: number;
+  proof: string;
+}
 
 @Component({
   selector: 'app-user-panel',
@@ -10,6 +32,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 })
 export class UserPanelComponent implements OnInit {
 
+  @ViewChild(MatPaginator, {static: true}) paginatorApprovedScores: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginatorWaitingForApproveScores: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginatorPendingScores: MatPaginator;
   personalInformationForm: FormGroup;
   changePasswordForm: FormGroup;
   deleteAccountForm: FormGroup;
@@ -21,8 +46,16 @@ export class UserPanelComponent implements OnInit {
   successChangePassword: boolean;
   roleIsAdmin: boolean;
   approvedScores: any;
+  waitingForApproveScores: any;
   pendingScores: any;
+  approvedScoresSource: MatTableDataSource<CardScore>;
+  waitingForApproveScoresSource: MatTableDataSource<CardScore>;
+  pendingScoresSource: MatTableDataSource<CardPendingScore>;
+  obsApprovedScores: Observable<any>;
+  obsWaitingForApproveScores: Observable<any>;
+  obsPendingScores: Observable<any>;
   hasApprovedScores: boolean;
+  hasWaitingForApproveScores: boolean;
   hasPendingScores: boolean;
 
   constructor(private formBuilder: FormBuilder, private apiService: ConnectDatabaseService) { }
@@ -53,6 +86,7 @@ export class UserPanelComponent implements OnInit {
     this.messagePassword = null;
     this.setUserData();
     this.setApprovedScores();
+    this.setWaitingForApproveScores();
     this.setPendingScores();
   }
 
@@ -66,26 +100,48 @@ export class UserPanelComponent implements OnInit {
 
   protected setApprovedScores() {
     const settingScoreData = {
-      isScoreApproved: 'true',
+      isScoreApproved: '1',
       jwt: this.jwt
     };
     this.apiService.getScores(settingScoreData).subscribe((data: any) => {
       if (data.length !== 0) {
         this.hasApprovedScores = true;
         this.approvedScores = data;
+        this.approvedScoresSource = new MatTableDataSource<CardScore>(this.approvedScores);
+        this.approvedScoresSource.paginator = this.paginatorApprovedScores;
+        this.obsApprovedScores = this.approvedScoresSource.connect();
+      }
+    });
+  }
+
+  protected setWaitingForApproveScores() {
+    const settingScoreData = {
+      isScoreApproved: '2',
+      jwt: this.jwt
+    };
+    this.apiService.getScores(settingScoreData).subscribe((data: any) => {
+      if (data.length !== 0) {
+        this.hasWaitingForApproveScores = true;
+        this.waitingForApproveScores = data;
+        this.waitingForApproveScoresSource = new MatTableDataSource<CardScore>(this.waitingForApproveScores);
+        this.waitingForApproveScoresSource.paginator = this.paginatorWaitingForApproveScores;
+        this.obsWaitingForApproveScores = this.waitingForApproveScoresSource.connect();
       }
     });
   }
 
   protected setPendingScores() {
     const settingScoreData = {
-      isScoreApproved: 'false',
+      isScoreApproved: '3',
       jwt: this.jwt
     };
     this.apiService.getScores(settingScoreData).subscribe((data: any) => {
       if (data.length !== 0) {
         this.hasPendingScores = true;
         this.pendingScores = data;
+        this.pendingScoresSource = new MatTableDataSource<CardPendingScore>(this.pendingScores);
+        this.pendingScoresSource.paginator = this.paginatorPendingScores;
+        this.obsPendingScores = this.pendingScoresSource.connect();
       }
     });
   }

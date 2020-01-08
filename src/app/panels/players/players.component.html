@@ -6,8 +6,8 @@
     </div>
 
     <div class="d-flex flex-wrap">
-        <div class="card bg-dark m-2" *ngFor="let player of this.players">
-            <div class="card-body text-white">
+        <mat-card class="example-card bg-dark text-white m-2" *ngFor="let player of obsPlayers | async">
+            <mat-card-content>
                 <span class="card-text font-weight-bold">Username: </span>
                 <span class="card-text">{{player.username}}</span>
                 <br />
@@ -17,7 +17,11 @@
                 <span class="card-text font-weight-bold">Scores submitted: </span>
                 <span class="card-text">{{player.approvedScoresQuantity}}</span>
                 <br />
-            </div>
-        </div>
+                <span class="card-text font-weight-bold">Registration time: </span>
+                <span class="card-text">{{player.registrationTime}}</span>
+                <br />
+            </mat-card-content>
+        </mat-card>
     </div>
+    <mat-paginator [pageSizeOptions]="[15, 30, 45, 60, 75]" showFirstLastButtons></mat-paginator>
 </div>

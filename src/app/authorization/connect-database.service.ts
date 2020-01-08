@@ -18,8 +18,8 @@ export class ConnectDatabaseService {
         return this.http.post<ApiResponse>(this.baseUrl + '/login.php', loginData);
     }
 
-    public createUser(user: UserModel): Observable<ApiResponse> {
-        return this.http.post<ApiResponse>(this.baseUrl + '/insert_user.php', user);
+    public insertUser(user: UserModel): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.baseUrl + '/register.php', user);
     }
 
     public getUserData(jwt: any): Observable<ApiResponse> {
@@ -52,5 +52,9 @@ export class ConnectDatabaseService {
 
     public deleteAccount(passwordData: any): Observable<ApiResponse> {
         return this.http.post<ApiResponse>(this.baseUrl + '/delete_account.php', passwordData);
+    }
+
+    public getScoresToRanking(scoreFilters: any): Observable<ApiResponse> {
+        return this.http.post<ApiResponse>(this.baseUrl + '/get_ranking.php', scoreFilters);
     }
 }

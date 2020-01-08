@@ -29,7 +29,7 @@ export class RegistrationModalComponent implements OnInit {
   }
 
   protected onSubmit() {
-    this.apiService.createUser(this.registrationForm.value).subscribe((data: any) => {
+    this.apiService.insertUser(this.registrationForm.value).subscribe((data: any) => {
       this.message = data.message;
       this.successRegist = data.successRegist;
 

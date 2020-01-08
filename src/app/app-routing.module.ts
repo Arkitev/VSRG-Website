@@ -7,7 +7,6 @@ import { LunaticraveComponent } from './panels/games/lunaticrave/lunaticrave.com
 import { DdrComponent } from './panels/games/ddr/ddr.component';
 import { SoundvoltexComponent } from './panels/games/soundvoltex/soundvoltex.component';
 import { PlayersComponent } from './panels/players/players.component';
-import { EventsComponent } from './panels/events/events.component';
 import { RankingsComponent } from './panels/rankings/rankings.component';
 import { DownloadsComponent } from './panels/downloads/downloads.component';
 import { UserPanelComponent } from './panels/user-panel/user-panel.component';
@@ -22,8 +21,7 @@ const routes: Routes = [
   { path: 'games/lunaticrave', component: LunaticraveComponent },
   { path: 'games/ddr', component: DdrComponent },
   { path: 'games/soundvoltex', component: SoundvoltexComponent },
-  { path: 'community/players', component: PlayersComponent },
-  { path: 'community/events', component: EventsComponent },
+  { path: 'players', component: PlayersComponent },
   { path: 'rankings', component: RankingsComponent },
   { path: 'downloads', component: DownloadsComponent },
   { path: 'user-panel', component: UserPanelComponent, canActivate: [AuthorizationGuard] },
@@ -38,4 +36,4 @@ const routes: Routes = [
 export class AppRoutingModule { }
 export const routingComponents = [ HomeComponent,
    OsumaniaComponent, BeatmaniaiidxComponent, LunaticraveComponent, DdrComponent, SoundvoltexComponent,
-    PlayersComponent, EventsComponent, RankingsComponent, DownloadsComponent, UserPanelComponent, RulesComponent ];
+    PlayersComponent, RankingsComponent, DownloadsComponent, UserPanelComponent, RulesComponent ];

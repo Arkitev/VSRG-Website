@@ -17,6 +17,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -26,7 +33,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     FooterComponent,
     CarouselComponent,
     LoginModalComponent,
-    RegistrationModalComponent,
+    RegistrationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -38,10 +45,17 @@ import { ClipboardModule } from 'ngx-clipboard';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTabsModule,
-    ClipboardModule
+    ClipboardModule,
+    MatSortModule,
+    MatTableModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatCardModule
   ],
   providers: [ AuthorizationGuard ],
-  bootstrap: [AppComponent],
+  bootstrap: [ AppComponent ],
   entryComponents: []
 })
 export class AppModule { }

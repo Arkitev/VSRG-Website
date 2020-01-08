@@ -3,13 +3,12 @@
     width: 100%;
 }
 
-.card {
-    font-size: 17px;
-    min-height: 342px;
+.example-card {
     width: 342px;
+    min-height: 330px;
 }
 
-.card-body>hr {
+.mat-card-content>hr {
     display: block;
     height: 1px;
     border: 0;

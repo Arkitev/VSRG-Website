@@ -14,8 +14,14 @@
     color: #DCDCDC;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
+.dropdown-menu {
+    margin-top: 0;
+}
+
+@media (min-width: 768px) {
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
 }
 
 .dropdown-menu {
@@ -32,7 +38,8 @@
     color: white;
 }
 
-.ark-has-search-icon .form-control {
+
+/* .ark-has-search-icon .form-control {
     padding-left: 2.375rem;
     background-color: #454d54;
     border-style: none;
@@ -58,7 +65,8 @@
     color: #aaa;
 }
 
-.ark-search-window:focus,
+.ark-search-window:focus, */
+
 .ark-btn-nav:active {
     box-shadow: none;
 }
@@ -68,11 +76,11 @@
     cursor: pointer;
 }
 
-.submit-score {
+.ark-submit-score {
     color: #1fc7e0 !important;
     font-weight: 600;
 }
 
-.submit-score:hover {
+.ark-submit-score:hover {
     color: #78dded !important;
 }

@@ -14,6 +14,7 @@ export class LoginModalComponent implements OnInit {
   invalidLogin = false;
   message: string;
   jwt: any;
+  keepLogged = false;
 
   constructor(private formBuilder: FormBuilder, private apiService: ConnectDatabaseService) { }
 
@@ -31,16 +32,17 @@ export class LoginModalComponent implements OnInit {
 
     const loginData = {
       email: this.loginForm.controls.email.value,
-      password: this.loginForm.controls.password.value
+      password: this.loginForm.controls.password.value,
+      keepLogged: this.keepLogged
     };
 
     this.apiService.login(loginData).subscribe((data: any) => {
         this.message = data.message;
         if (data.jwt) {
-          this.jwt = data.jwt;
           window.location.reload();
           window.localStorage.setItem('jwt', data.jwt);
           window.localStorage.setItem('role', data.role);
+          this.jwt = data.jwt;
           $('#loginModal').modal('hide');
           $('body').removeClass('modal-open');
           $('.modal-backdrop').fadeOut(150);
@@ -56,6 +58,11 @@ export class LoginModalComponent implements OnInit {
     this.loginForm.reset();
     this.message = null;
   }
+
+  protected onKeepLogged() {
+    this.keepLogged = true;
+  }
+
 
   protected openRegistrationModal() {
     this.onReset();

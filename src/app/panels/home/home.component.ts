@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   isLogged = true;
   successScoreSubmit: boolean;
   message: string;
+  isCategoryOM = false;
 
   categories = [
     { name: 'osu!mania 4k - Reform Dans', value: 'osu!mania 4k - Reform Dans', game: 'osu!mania' },
@@ -86,7 +87,18 @@ export class HomeComponent implements OnInit {
           }
         }
      });
+      if (data.mainGame === 'osu!mania') {
+       this.isCategoryOM = true;
+     }
     });
+  }
+
+  protected onChangeCategory(category: any) {
+    if (category === 'osu!mania 4k - Reform Dans') {
+      this.isCategoryOM = true;
+    } else {
+      this.isCategoryOM = false;
+    }
   }
 
   get category() { return this.submitScoreForm.get('category'); }
