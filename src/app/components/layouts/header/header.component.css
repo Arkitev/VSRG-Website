@@ -38,35 +38,6 @@
     color: white;
 }
 
-
-/* .ark-has-search-icon .form-control {
-    padding-left: 2.375rem;
-    background-color: #454d54;
-    border-style: none;
-}
-
-.ark-has-search-icon .form-control:focus {
-    background-color: white;
-    box-shadow: none;
-}
-
-.ark-has-search-icon .form-control:not(:focus) {
-    color: #aaa;
-}
-
-.ark-has-search-icon .form-control-feedback {
-    position: absolute;
-    display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height: 2.375rem;
-    text-align: center;
-    pointer-events: none;
-    color: #aaa;
-}
-
-.ark-search-window:focus, */
-
 .ark-btn-nav:active {
     box-shadow: none;
 }

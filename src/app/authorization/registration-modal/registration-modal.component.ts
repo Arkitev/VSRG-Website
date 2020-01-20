@@ -13,7 +13,6 @@ export class RegistrationModalComponent implements OnInit {
   message: string;
   successRegist: boolean;
 
-
   constructor(private formBuilder: FormBuilder, private apiService: ConnectDatabaseService) { }
 
   ngOnInit() {
@@ -44,7 +43,6 @@ export class RegistrationModalComponent implements OnInit {
   }
 
   protected onReset() {
-    // $('#mainGame').val('---');
     this.registrationForm.reset();
     this.acceptRules.setValue(false);
     this.message = null;

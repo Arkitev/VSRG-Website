@@ -45,12 +45,6 @@
             </li>
         </ul>
 
-        <!-- Search
-        <div class="ark-has-search-icon mr-md-5 my-2 my-md-0">
-            <span class="fa fa-search form-control-feedback"></span>
-            <input class="form-control search-window" type="search" placeholder="Search">
-        </div> -->
-
         <ng-container *ngIf="!isJwtSet(); else logged">
             <!--Sign-in-->
             <a class="ark-btn-nav mr-4" href data-toggle="modal" (click)="openLoginModal()" data-backdrop="static" data-keyboard="false">

@@ -26,10 +26,6 @@ export class LoginModalComponent implements OnInit {
   }
 
   protected onSubmit() {
-    if (this.loginForm.invalid) {
-      return;
-    }
-
     const loginData = {
       email: this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value,
