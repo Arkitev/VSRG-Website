@@ -1,5 +1,5 @@
 # VSRGWebsite
 
 My biggest college project written as an engineering thesis.
-It's a web application with informations about different vsrg games, authentication, scores submitting system, ranking etc..
+It's a web application with informations about different vsrg games, authentication, scores submitting system, ranking, etc..
 
